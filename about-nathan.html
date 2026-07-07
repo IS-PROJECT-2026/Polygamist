@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me — Nathan Githinji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-dark:    #09090b; /* Zinc 950 */
+    --panel-dark: #18181b; /* Zinc 900 */
+    --border-dark:#27272a; /* Zinc 800 */
+    --bg-light:   #fafafa; /* Zinc 50 */
+    --panel-light:#f4f4f5; /* Zinc 100 */
+    --border-light:#e4e4e7; /* Zinc 200 */
+    --ink-primary:#18181b; /* Zinc 900 */
+    --ink-sec:    #3f3f46; /* Zinc 700 */
+    --ink-muted:  #71717a; /* Zinc 500 */
+    --link-color: #09090b; /* Pitch Black */
+}
+
+html { height: 100%; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f4f4f5; /* Clean light gray canvas */
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── SLEEVE WRAPPER ───────────────────────────────────────────────────────── */
+.sleeve {
+    width: 100%;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    min-height: 600px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border-radius: 0; /* Sharp corners */
+}
+
+/* ── LEFT: ALBUM COVER ────────────────────────────────────────────────────── */
+.cover {
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--border-dark);
+}
+
+/* Label area top */
+.cover-label-top {
+    position: relative;
+    z-index: 10;
+    padding: 28px 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.label-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--bg-light);
+    border: 1px solid var(--bg-light);
+    padding: 3px 8px;
+}
+
+.label-cat {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 1px;
+}
+
+/* Spacer to push text and photo elegantly to the bottom */
+.cover-spacer {
+    flex: 1;
+}
+
+/* Photo sits inside cover-text container directly above titles */
+.cover-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Circular frame */
+    border: 1px solid var(--border-dark);
+    background: var(--panel-dark);
+    overflow: hidden;
+    display: block;
+    margin-bottom: 24px; /* Space between photo and artist text */
+}
+
+.cover-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%); /* Minimalist black and white portrait styling */
+    transition: filter 0.3s ease;
+}
+
+.cover-photo img:hover {
+    filter: grayscale(0%); /* Returns color on hover */
+}
+
+/* Cover text bottom */
+.cover-text {
+    position: relative;
+    z-index: 10;
+    padding: 0 28px 28px;
+}
+
+.cover-artist {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 8px;
+}
+
+.cover-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.0;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.cover-title em {
+    font-style: italic;
+    color: var(--ink-muted);
+}
+
+.cover-genre-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.genre-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--bg-light);
+    border: 1px solid var(--border-dark);
+    padding: 3px 8px;
+}
+
+.cover-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 1px;
+}
+
+/* ── RIGHT: LINER NOTES ───────────────────────────────────────────────────── */
+.liner {
+    background: var(--bg-light);
+    padding: 32px 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.liner > * { position: relative; z-index: 1; }
+
+/* Liner header */
+.liner-masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink-primary);
+}
+
+.masthead-left h2 {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 2px;
+}
+
+.masthead-left p {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink-primary);
+    line-height: 1.1;
+    letter-spacing: -0.3px;
+}
+
+.masthead-right {
+    text-align: right;
+}
+
+.masthead-right a {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--link-color);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+}
+
+.masthead-right a:hover { text-decoration: underline; }
+
+/* ── NOTES SECTION ────────────────────────────────────────────────────────── */
+.note-section {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.note-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.note-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink-primary);
+    margin-bottom: 3px;
+}
+
+.note-heading {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-primary);
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.note-prompt {
+    font-size: 10.5px;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-bottom: 7px;
+    line-height: 1.5;
+    font-family: 'Playfair Display', serif;
+}
+
+.note-body {
+    font-size: 12.5px;
+    color: var(--ink-sec);
+    line-height: 1.75;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+/* ── CREDITS BLOCK (tech stack) ───────────────────────────────────────────── */
+.credits-block {
+    background: var(--panel-light);
+    border: 1px solid var(--border-light);
+    padding: 12px 14px;
+    font-family: 'Space Mono', monospace;
+    border-radius: 0; /* Sharp corners */
+}
+
+.credits-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 6px;
+    font-size: 10px;
+    line-height: 2;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.credits-row:last-child { border-bottom: none; }
+
+.credits-key {
+    color: var(--ink-muted);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 9px;
+}
+
+.credits-val {
+    color: var(--ink-sec);
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* ── TRACK LISTING (skills) ───────────────────────────────────────────────── */
+.tracklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.track {
+    display: grid;
+    grid-template-columns: 22px 1fr 28px;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 11.5px;
+}
+
+.track:last-child { border-bottom: none; }
+
+.track-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-muted);
+    text-align: right;
+}
+
+.track-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--ink-sec);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.track-dur {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--ink-muted);
+    text-align: right;
+}
+
+/* ── LINER FOOTER ─────────────────────────────────────────────────────────── */
+.liner-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.liner-footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--ink-muted);
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+    body { padding: 0 0 40px; }
+    .sleeve { grid-template-columns: 1fr; max-width: 500px; }
+    .cover { min-height: 440px; }
+    .cover-photo { width: 130px; height: 130px; margin-bottom: 18px; }
+    .liner { padding: 24px 24px 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sleeve">
+
+<!-- ══ LEFT: ALBUM COVER ════════════════════════════════════════════════════ -->
+<div class="cover">
+
+<div class="cover-label-top">
+    <span class="label-logo">ICS Records</span>
+    <span class="label-cat">CAP–2026–04</span>
+</div>
+
+<div class="cover-spacer"></div>
+
+<div class="cover-text">
+    <div class="cover-photo" role="img" aria-label="Nathan Githinji profile photo">
+        <img src="https://media.licdn.com/dms/image/v2/D4E03AQHxROZ3d22j0g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726512333655?e=1784160000&v=beta&t=HF2oIzmiR4MPzmt9wldmFnb3tuzEWc44gsWYVqlYFfg" alt="Nathan Githinji profile photo">
+    </div>
+    <p class="cover-artist">Nathan Githinji</p>
+    <h1 class="cover-title">About<br><em>Me.</em></h1>
+    <div class="cover-genre-row">
+        <span class="genre-tag">Software Engineer</span>
+        <span class="genre-tag">Fullstack Dev</span>
+        <span class="cover-year">© 2026</span>
+    </div>
+</div>
+</div>
+
+<!-- ══ RIGHT: LINER NOTES ═══════════════════════════════════════════════════ -->
+<div class="liner">
+
+<div class="liner-masthead">
+    <div class="masthead-left">
+    <h2>Liner Notes</h2>
+    <p>The full story.</p>
+    </div>
+    <div class="masthead-right">
+    <a href="https://www.linkedin.com/in/nathan-githinji-rugo-4188772b1" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/Nathan-Rugo" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+</div>
+
+<!-- MISSION -->
+<div class="note-section">
+    <p class="note-kicker">Side A — Track 1</p>
+    <h2 class="note-heading">My Coding Mission</h2>
+    <p class="note-prompt">What kind of real-world problems do you want to solve using technology?</p>
+    <p class="note-body">I aim to build high-performance, responsive user interfaces that simplify database-heavy workflows for users. By bridging secure transactional ledger backends with intuitive design, I strive to make complex web applications accessible and trustworthy.</p>
+</div>
+
+<!-- TECH STACK — credits block -->
+<div class="note-section">
+    <p class="note-kicker">Side A — Track 2</p>
+    <h2 class="note-heading">My Tech Stack</h2>
+    <p class="note-prompt">What tools do you know? What technologies are you utilizing next?</p>
+    <div class="credits-block">
+    <div class="credits-row">
+        <span class="credits-key">Produced by</span>
+        <span class="credits-val">JavaScript, TypeScript, Python, Java</span>
+    </div>
+    <div class="credits-row">
+        <span class="credits-key">Mixed in</span>
+        <span class="credits-val">React, React Native (Expo), Next.js</span>
+    </div>
+    <div class="credits-row">
+        <span class="credits-key">Engineered on</span>
+        <span class="credits-val">Node.js, Express, Django, Flask, MySQL</span>
+    </div>
+    <div class="credits-row">
+        <span class="credits-key">Next session</span>
+        <span class="credits-val">Blockchain &amp; Smart Contracts — actively integrating</span>
+    </div>
+    <div class="credits-row">
+        <span class="credits-key">Learning</span>
+        <span class="credits-val">Redis cache strategies &amp; decentralized ledgers — in progress</span>
+    </div>
+    </div>
+</div>
+
+<!-- PASSIONS -->
+<div class="note-section">
+    <p class="note-kicker">Side A — Track 3</p>
+    <h2 class="note-heading">My Passions</h2>
+    <p class="note-prompt">What do you love doing when you are not looking at a computer screen?</p>
+    <p class="note-body">Beyond development, I enjoy exploring world cultures and am actively learning Japanese. I am also deeply engaged in organizing student association meetups, facilitating peer-to-peer technical mentorship, and coordinating local community events.</p>
+</div>
+
+<!-- SKILLS — tracklist -->
+<div class="note-section">
+    <p class="note-kicker">Side B — Track 1</p>
+    <h2 class="note-heading">Skills Acquired</h2>
+    <p class="note-prompt">The three most valuable life or professional skills from your degree.</p>
+    <div class="tracklist">
+    <div class="track">
+        <span class="track-num">1.</span>
+        <span class="track-title">Structured Problem Solving — Breaking complex relational databases and system state flows into manageable interfaces</span>
+        <span class="track-dur">///</span>
+    </div>
+    <div class="track">
+        <span class="track-num">2.</span>
+        <span class="track-title">Collaborative Leadership — Coordinating multi-disciplinary teams under high pressure as SCESA President</span>
+        <span class="track-dur">///</span>
+    </div>
+    <div class="track">
+        <span class="track-num">3.</span>
+        <span class="track-title">Technical Adaptability — Rapidly mastering new programming paradigms, from machine learning to blockchain structures</span>
+        <span class="track-dur">///</span>
+    </div>
+    </div>
+</div>
+
+<!-- ENERGY -->
+<div class="note-section">
+    <p class="note-kicker">Side B — Track 2</p>
+    <h2 class="note-heading">Energy &amp; Engagement</h2>
+    <p class="note-prompt">Which classes or projects brought you the most energy, and why?</p>
+    <p class="note-body">Working on my Final Year Capstone Project, the Automated Commission and Escrow Payment System, has brought me the most energy. Combining high-fidelity Next.js frontend interfaces with underlying decentralized ledgers and Redis cache layers allows me to design critical tools that directly address system security and data transparency.</p>
+</div>
+
+<!-- LOOKING BACK -->
+<div class="note-section">
+    <p class="note-kicker">Side B — Track 3</p>
+    <h2 class="note-heading">Looking Back</h2>
+    <p class="note-prompt">If you were to give advice to your first-year self, what would it be?</p>
+    <p class="note-body">I would tell my first-year self to lock down the fundamentals of data structures and algorithms early on, and to take active risks in student leadership and hackathons sooner. Building alongside others accelerates growth far faster than studying in isolation.</p>
+</div>
+
+<!-- CIRCLE OF INFLUENCE -->
+<div class="note-section">
+    <p class="note-kicker">Hidden Track</p>
+    <h2 class="note-heading">Circle of Influence</h2>
+    <p class="note-prompt">Who are the mentors, peers, or lecturers who have poured into you?</p>
+    <p class="note-body">I am incredibly grateful to my trainers and mentors at Africa 2 Silicon Valley (A2SV) for establishing my problem-solving foundation. I also owe a great deal to my peers in SCESA and our lecturers at Strathmore University for cultivating an ecosystem of constant learning and shared technical ambition.</p>
+</div>
+
+<footer class="liner-footer">
+    <div class="liner-footer-copy">
+    ICS 4 Capstone · Strathmore University<br>
+    Nairobi, Kenya · 2026
+    </div>
+</footer>
+
+</div><!-- /liner -->
+
+</div><!-- /sleeve -->
+
+</body>
+</html>
